@@ -2,7 +2,7 @@
 
 Repositorio oficial para la **Evaluación Sumativa 2 (Unidad 2)** de la asignatura **Programación Orientada a Objeto Seguro** (INACAP Sede Chillán). 
 
-Este proyecto implementa en **Python** una arquitectura modular basada en el patrón **MVC (Modelo-Vista-Controlador)** y **DAO (Data Access Object)**, a partir del diagrama UML validado de EcoTech Solutions. Incorpora Programación Orientada a Objetos (POO), persistencia segura en base de datos relacional, manejo robusto de excepciones (`try-except`) y validación técnica crítica del código asistido por Inteligencia Artificial.
+Desarrollado íntegramente en **Python**, este repositorio implementa el modelo de clases de EcoTech Solutions estructurado bajo el patrón **MVC** y **DAO**. El sistema aplica los principios de la Programación Orientada a Objetos, asegura la persistencia de datos mediante librerías oficiales, garantiza la estabilidad operativa con manejo de errores y contempla una evaluación crítica de las prácticas de codificación asistidas por IA.
 
 ---
 
