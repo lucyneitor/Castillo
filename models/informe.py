@@ -1,6 +1,9 @@
 # Informe (id_informe, fecha, tipo, formato)
+from datetime import date
+
+
 class Informe:
-    def __init__(self, id_informe:int, fecha:str, tipo:str, formato:str):
+    def __init__(self, id_informe:int, fecha:date, tipo:str, formato:str):
         self.id_informe = id_informe
         self.fecha = fecha
         self.tipo = tipo
@@ -15,11 +18,11 @@ class Informe:
         self._id_informe = value
 
     @property
-    def fecha(self)-> str:
+    def fecha(self)-> date:
         return self._fecha
 
     @fecha.setter
-    def fecha(self, value: str)-> None:
+    def fecha(self, value: date)-> None:
         self._fecha = value
 
     @property
