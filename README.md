@@ -37,7 +37,7 @@ El repositorio se encuentra estructurado bajo un enfoque desacoplado y profesion
 * **`views/`**: Manejan la interacción con el usuario (interfaz de consola o menús interactivos).
 
 ---
-
+## Luz fantasma
 ## 📂 Estructura del Proyecto
 
 ```text
