@@ -16,6 +16,7 @@ Desarrollado íntegramente en **Python**, este repositorio implementa el modelo 
 
 ## 📌 Descripción del Proyecto
 El sistema **EcoTech Solutions** responde a la necesidad de gestionar de forma integral los recursos corporativos de la empresa, abarcando entidades clave como **Empleados**, **Departamentos**, **Proyectos**, **Tiempos**, **Usuarios** e **Informes**. El diseño cumple estrictamente con el diagrama UML de clases validado, aplicando los principios de encapsulamiento, herencia y modularidad en Python.
+Aca añadimos la tabla de personas para que no se nos olvide
 
 ---
 
