@@ -30,25 +30,26 @@ class Database:
         try:
             cursor: Cursor = conn.cursor()
 
-            #tabla Departamento (Integrer = entero) #cambiar la creación de tablas
+            #cambiar la creación de tablas
             #persona
             cursor.execute("""
-            CREATE TABLE IF NOT EXISTS empleado ( #clase abstracta (persona, empleado, administrador)
+            CREATE TABLE IF NOT EXISTS empleado ( --persona, empleado, administrador
                 rut TEXT PRIMARY KEY,
                 nombre TEXT NOT NULL,
                 direccion TEXT NOT NULL,
                 telefono TEXT NOT NULL,
                 correo TEXT NOT NULL,
-                area_trabajo TEXT NOT NULL,
+                area_trabajo INTEGER NOT NULL, --area de trabajo = departamento
                 sueldo INTEGER NOT NULL,
                 inicio_contrato DATE NOT NULL
+                FOREIGN KEY (area_trabajo) REFERENCES departamento(id_departamento) ON DELETE SET NULL
             )
             """)
             
             #tabla usuario
             cursor.execute("""
-            CREATE TABLE IF NOT EXISTS usuario (
-                id_usuario TEXT PRIMARY KEY,
+            CREATE TABLE IF NOT EXISTS usuario (  --usuario, administrador
+                id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
                 user TEXT NOT NULL,
                 contrasenia TEXT NOT NULL,
                 rut TEXT NOT NULL,
@@ -57,13 +58,53 @@ class Database:
             """)
 
             #tabla informe (id_informe, fecha, tipo, formato)
-    
+            cursor.execute("""
+            CREATE TEMP TABLE IF NOT EXISTS informe (
+                id_informe INTEGER PRIMARY KEY AUTOINCREMENT,
+                fecha DATE NOT NULL,
+                tipo TEXT NOT NULL,
+                formato TEXT NOT NULL,
+                id_usuario INTEGER NOT NULL, --aqui si o si debe ser un administrador
+                FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+                    ON DELETE CASCADE
+                    ON UPDATE CASCADE
+            )
+            """)
+
             # tabla departamento (id_departamento, nombre, gerente, presupuesto)
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS departamento (
+                id_departamento INTEGER PRIMARY KEY,
+                nombre TEXT NOT NULL,
+                gerente TEXT NOT NULL,
+                presupuesto INTEGER NOT NULL
+            )
+            """)
 
             # tabla tiempo (id_tiempo, fecha, hora_entrada, hora_salida)
-
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS tiempo (
+                id_tiempo INTEGER PRIMARY KEY,
+                fecha DATE NOT NULL,
+                hora_entrada TIME NOT NULL,
+                hora_salida TIME NOT NULL,
+                id_empleado TEXT NOT NULL,
+                id_proyecto INTEGER NOT NULL,
+                FOREIGN KEY (id_empleado) REFERENCES empleado(rut) ON DELETE SET NULL
+                FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto) ON DELETE SET NULL
+            )
+            """)
             # tabla proyecto (id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin) /revisar diagramas
-            
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS proyecto (
+                id_proyecto INTEGER PRIMARY KEY,
+                nombre TEXT NOT NULL,
+                descripcion TEXT NOT NULL,
+                fecha_inicio DATE NOT NULL,
+                fecha_fin DATE NOT NULL
+            )
+            """)
+
             conn.commit()
         except sqlite3.Error as e:
             print(f"Error al inicializar la base de datos: {e}")
