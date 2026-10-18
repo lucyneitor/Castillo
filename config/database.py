@@ -18,7 +18,7 @@ class Database:
         """
         Retorna una conexión a la base de datos SQLite
         """
-        conn=sqlite3.connect(self._db_path)#path = ubicacion
+        conn=sqlite3.connect(self._db_path) #path = ubicacion
         conn.row_factory = sqlite3.Row #Permite acceder a las columnas por nombre
         return conn
 
