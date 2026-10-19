@@ -20,6 +20,7 @@ class Database:
         """
         conn=sqlite3.connect(self._db_path) #path = ubicacion
         conn.row_factory = sqlite3.Row #Permite acceder a las columnas por nombre
+        conn.execute("PRAGMA foreign_keys = ON")
         return conn
 
     def init_db(self) -> None:
@@ -41,7 +42,7 @@ class Database:
                 correo TEXT NOT NULL,
                 area_trabajo INTEGER NOT NULL, --area de trabajo = departamento
                 sueldo INTEGER NOT NULL,
-                inicio_contrato DATE NOT NULL
+                inicio_contrato DATE NOT NULL,
                 FOREIGN KEY (area_trabajo) REFERENCES departamento(id_departamento) ON DELETE SET NULL
             )
             """)
@@ -53,8 +54,12 @@ class Database:
                 user TEXT NOT NULL,
                 contrasenia TEXT NOT NULL,
                 rut TEXT NOT NULL,
-                FOREIGN KEY (rut) REFERENCES empleado(rut) ON DELETE SET NULL
+                FOREIGN KEY (rut) REFERENCES empleado(rut) ON DELETE CASCADE
             )
+            """)
+            cursor.execute("""
+            CREATE UNIQUE INDEX IF NOT EXISTS idx_usuario_user_unique
+            ON usuario(user COLLATE NOCASE)
             """)
 
             #tabla informe (id_informe, fecha, tipo, formato)
@@ -90,7 +95,7 @@ class Database:
                 hora_salida TIME NOT NULL,
                 id_empleado TEXT NOT NULL,
                 id_proyecto INTEGER NOT NULL,
-                FOREIGN KEY (id_empleado) REFERENCES empleado(rut) ON DELETE SET NULL
+                FOREIGN KEY (id_empleado) REFERENCES empleado(rut) ON DELETE SET NULL,
                 FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto) ON DELETE SET NULL
             )
             """)
@@ -106,8 +111,6 @@ class Database:
             """)
 
             conn.commit()
-        except sqlite3.Error as e:
-            print(f"Error al inicializar la base de datos: {e}")
         finally:#pasa independientemente si falla o no el programa
             conn.close() #cierra conexión
 
