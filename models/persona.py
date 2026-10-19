@@ -7,7 +7,9 @@ class persona(ABC):
         self.direccion = direccion
         self.telefono = telefono
         self.correo = correo
-        
+        #self.objeto = objeto #ya esta construido (asociacion, agregacion)
+        #self.objeto = Objeto(atributos del objeto) composicion
+
 # Obtencion de atributo mediante un metodo
     @property 
     def rut(self) -> str:

@@ -9,7 +9,7 @@ class Usuario:
 
     @property
     def usuario(self) -> str:
-        return self._usuario
+        return self._usuario #2 guiones bajo privado # 1 guion bajo protegido y sin guiones es publico 
 
     @usuario.setter
     def usuario(self, usuario: str) -> None:
