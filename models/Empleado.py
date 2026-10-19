@@ -1,6 +1,7 @@
 from datetime import date
 from models.persona import persona
 
+
 class empleado(persona):
     def __init__(self,area_trabajo:str,sueldo:int,inicio_contraro:date,rut:str,
                  nombre:str,direccion:str,telefono:str,correo:str):

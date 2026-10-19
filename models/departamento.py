@@ -1,3 +1,5 @@
+from models.persona import persona
+
 # atributos clave id_departamento, nombre, gerente, presupuesto
 class Departamento:
     def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:float):
