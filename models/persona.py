@@ -1,8 +1,10 @@
-class persona:
-    def __init__(self,Rut:str,Nombre:str,Direccion:str,telefono:str,correo:str):
-        self.rut = Rut
-        self.nombre = Nombre
-        self.direccion = Direccion
+from abc import ABC, abstractmethod
+
+class persona(ABC):
+    def __init__(self,rut:str,nombre:str,direccion:str,telefono:str,correo:str):
+        self.rut = rut
+        self.nombre = nombre
+        self.direccion = direccion
         self.telefono = telefono
         self.correo = correo
         
@@ -45,3 +47,7 @@ class persona:
 
     def __repr__(self) -> str:
         return f"Persona:(rut={self.rut}, Nombre={self.nombre}, Direccion={self.direccion}, telefono={self.telegono}, correo={self.correo})"
+
+    @abstractmethod
+    def mostrar_detalle(self) -> str:
+        pass

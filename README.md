@@ -45,10 +45,10 @@ El repositorio se encuentra estructurado bajo un enfoque desacoplado y profesion
 ecotech-gestion-empresarial/
 │
 ├── config/
-│   ├── __init__.py
-│   └── database.py          
+│   ├── __init__.py [listo]
+│   └── database.py [listo]    
 ├── controllers/
-│   ├── __init__.py
+│   ├── __init__.py                 [listo]
 │   ├── departamento_controller.py
 │   ├── empleado_controller.py
 │   ├── proyecto_controller.py
@@ -58,7 +58,7 @@ ecotech-gestion-empresarial/
 │   ├── informe_controller.py
 │   └── main_controller.py
 ├── models/
-│   ├── departamento.py      
+│   ├── departamento.py     [listo]  
 │   ├── departamento_dao.py  
 │   ├── empleado.py          
 │   ├── empleado_dao.py      

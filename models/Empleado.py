@@ -1,6 +1,10 @@
 from datetime import date
-class empleado:
-    def __init__(self,area_trabajo:str,sueldo:int,inicio_contraro:date):
+from models.persona import persona
+
+class empleado(persona):
+    def __init__(self,area_trabajo:str,sueldo:int,inicio_contraro:date,rut:str,
+                 nombre:str,direccion:str,telefono:str,correo:str):
+        super().__init__(rut,nombre,direccion,telefono,correo)
         self._area_trabajo = area_trabajo
         self._sueldo = sueldo
         self._inicio_contrato = inicio_contraro
