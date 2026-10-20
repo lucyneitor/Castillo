@@ -1,18 +1,19 @@
 from datetime import date
 from models.persona import persona
 
-
 class empleado(persona):
-    def __init__(self,area_trabajo:str,sueldo:int,inicio_contraro:date,rut:str,
-                 nombre:str,direccion:str,telefono:str,correo:str):
+    def __init__(self,area_trabajo:str,sueldo:int,inicio_contrato:date,rut:str,
+                 nombre:str,direccion:str,telefono:str,correo:str, rol_admin:bool):
         super().__init__(rut,nombre,direccion,telefono,correo)
         self._area_trabajo = area_trabajo
         self._sueldo = sueldo
-        self._inicio_contrato = inicio_contraro
+        self._inicio_contrato = inicio_contrato
+        self._rol_admin = rol_admin
         
     @property
     def area_trabajo(self)-> str:
         return self._area_trabajo
+    
     @area_trabajo.setter
     def area_trabajo (self,valor:str)-> None:
         self._area_trabajo = valor
@@ -20,16 +21,26 @@ class empleado(persona):
     @property
     def sueldo(self)->int:
         return self._sueldo
+    
     @sueldo.setter
     def sueldo (self, valor:int)-> None:
         self._sueldo = valor
-    
+
     @property
     def inicio_contrato (self)-> str:
-        return self._inicio_contrato
+            return self._inicio_contrato
+        
     @inicio_contrato.setter
     def inicio_contrato(self,valor:date) -> None:
         self._inicio_contrato = valor
+
+    @property
+    def rol_admin(self)->bool:
+        return self._rol_admin
+
+    @rol_admin.setter
+    def rol_admin(self, valor:bool)-> None:
+        self._rol_admin = valor
     
     def __repr__(self) -> str:
-            return f"Empleado:(area_trabajo={self._inicio_contrato}, sueldo={self._sueldo},inicio_contrado{self._inicio_contrato})"
+            return f"Empleado:(area_trabajo={self._area_trabajo}, sueldo={self._sueldo}, inicio_contrato={self._inicio_contrato}, rol_admin={self._rol_admin})"
