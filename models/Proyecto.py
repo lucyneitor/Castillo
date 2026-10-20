@@ -1,4 +1,5 @@
-import sqlite3
+import sqlite3 #pq esto???
+from models.Empleado import empleado
 
 class Proyecto:
     """
@@ -6,11 +7,12 @@ class Proyecto:
     esto despues estara conectado con la base de datos de tiempo para gestionar estos
     """
     
-    def _init_(self, nombre, descripcion, fecha_inicio):
+    def _init_(self, nombre:str, descripcion:str, fecha_inicio:str, empleado:empleado):
         self.nombre = nombre
         self.descripcion = descripcion
         self.fecha_inicio = fecha_inicio
-
+        self.empleado = empleado
+        
     def _str_(self):
         return f"{self.nombre}: {self.descripcion}"
 

@@ -1,4 +1,5 @@
 import sqlite3
+from models.Empleado import empleado
 
 class Tiempo:
 
@@ -7,10 +8,11 @@ class Tiempo:
     esto despues estara conectado con la base de datos de proyecto para gestionar estos
     """
     
-    def _init_(self, fecha, tiempo_trabajado, descripcion):
+    def _init_(self, fecha:str, tiempo_trabajado:float, descripcion:str, empleado:empleado):
         self.fecha = fecha
         self.tiempo_trabajado = tiempo_trabajado
         self.descripcion = descripcion
+        self.empleado = empleado
 
     def _str_(self):
         return (

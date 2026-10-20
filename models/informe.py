@@ -1,13 +1,15 @@
 # Informe (id_informe, fecha, tipo, formato)
 from datetime import date
+from models.Empleado import empleado
 
 
 class Informe:
-    def __init__(self, id_informe:int, fecha:date, tipo:str, formato:str):
+    def __init__(self, id_informe:int, fecha:date, tipo:str, formato:str, empleado:empleado):
         self.id_informe = id_informe
         self.fecha = fecha
         self.tipo = tipo
         self.formato = formato
+        self.empleado = empleado
 
     @property
     def id_informe(self)-> int:
