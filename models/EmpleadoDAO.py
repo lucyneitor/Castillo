@@ -3,19 +3,18 @@ from config.database import Database
 from models.Empleado import empleado
 
 class EmpleadoDAO:
-    def __init__(self):
-        self.db = Database()
     """
     Data Access Object para la entidad Paciente.
     Maneja todas las operaciones CRUD en la base de datos.
     """
+    @staticmethod
     def agregar_empleado(empleado: empleado) -> bool:
         """
         Agrega un nuevo empleado a la base de datos.
         """
-        conn = self.db.get_connection()
-        cursor: Cursor = conn.cursor()
+        conn = Database().get_connection()
         try:
+            cursor: Cursor = conn.cursor()
             cursor.execute("""
                 INSERT INTO empleado (rut, nombre, direccion, telefono, correo, user, password, area_trabajo, sueldo, inicio_contrato, rol_admin, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
