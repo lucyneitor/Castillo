@@ -20,8 +20,8 @@ class empleado(persona):
     
     @area_trabajo.setter
     def area_trabajo (self,valor:int)-> None:
-        if not isinstance(valor, str) or len(valor.strip())<3:
-            raise ValueError("El area de trabajo debe ser de almenos 3 carateres")
+        if not isinstance(valor, int) or valor < 0:
+            raise ValueError("Identificador de area de trabajo debe ser un número positivo")
         self._area_trabajo = valor
     
     @property
