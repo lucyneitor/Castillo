@@ -3,8 +3,9 @@ from models.persona import persona
 
 class empleado(persona):
     def __init__(self,area_trabajo:str,sueldo:int,inicio_contrato:date,rut:str,
-                 nombre:str,direccion:str,telefono:str,correo:str, rol_admin:bool):
-        super().__init__(rut,nombre,direccion,telefono,correo)
+                 nombre:str,direccion:str,telefono:str,correo:str,user:str,password:str, rol_admin:bool):
+        super().__init__(rut,nombre,direccion,telefono,correo,
+                         user,password)
         self._area_trabajo = area_trabajo
         self._sueldo = sueldo
         self._inicio_contrato = inicio_contrato

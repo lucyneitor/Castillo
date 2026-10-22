@@ -40,39 +40,26 @@ class Database:
                 direccion TEXT NOT NULL,
                 telefono TEXT NOT NULL,
                 correo TEXT NOT NULL,
+                user TEXT NOT NULL,
+                password TEXT NOT NULL,
                 area_trabajo INTEGER NOT NULL, --area de trabajo = departamento
                 sueldo INTEGER NOT NULL,
                 inicio_contrato DATE NOT NULL,
+                rol_admin BOOLEAN NOT NULL,
                 FOREIGN KEY (area_trabajo) REFERENCES departamento(id_departamento) ON DELETE SET NULL
             )
-            """)
-            
-            #tabla usuario
-            cursor.execute("""
-            CREATE TABLE IF NOT EXISTS usuario (  --usuario, administrador
-                id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
-                user TEXT NOT NULL,
-                contrasenia TEXT NOT NULL,
-                rut TEXT NOT NULL,
-                FOREIGN KEY (rut) REFERENCES empleado(rut) ON DELETE CASCADE
-            )
-            """)
-            cursor.execute("""
-            CREATE UNIQUE INDEX IF NOT EXISTS idx_usuario_user_unique
-            ON usuario(user COLLATE NOCASE)
             """)
 
             #tabla informe (id_informe, fecha, tipo, formato)
             cursor.execute("""
-            CREATE TEMP TABLE IF NOT EXISTS informe (
+            CREATE TABLE IF NOT EXISTS informe (
                 id_informe INTEGER PRIMARY KEY AUTOINCREMENT,
                 fecha DATE NOT NULL,
                 tipo TEXT NOT NULL,
                 formato TEXT NOT NULL,
                 id_usuario INTEGER NOT NULL, --aqui si o si debe ser un administrador
-                FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE SET NULL
+                    
             )
             """)
 
