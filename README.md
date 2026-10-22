@@ -59,7 +59,7 @@ ecotech-gestion-empresarial/
 │   └── main_controller.py
 ├── models/
 │   ├── departamento.py     [listo]  
-│   ├── departamento_dao.py  
+│   ├── departamento_dao.py [proceso]
 │   ├── empleado.py         [listo]
 │   ├── empleado_dao.py     [revisar]
 │   └── proyecto.py         [listo]
