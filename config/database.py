@@ -46,6 +46,7 @@ class Database:
                 sueldo INTEGER NOT NULL,
                 inicio_contrato DATE NOT NULL,
                 rol_admin BOOLEAN NOT NULL,
+                estado TEXT NOT NULL,
                 FOREIGN KEY (area_trabajo) REFERENCES departamento(id_departamento) ON DELETE SET NULL
             )
             """)
