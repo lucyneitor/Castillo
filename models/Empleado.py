@@ -4,7 +4,7 @@ from models.persona import persona
 ESTADO = ["activo", "inactivo", "vacaciones", "suspendido"] 
 
 class empleado(persona):
-    def __init__(self,area_trabajo:str,sueldo:int,inicio_contrato:date,rut:str,
+    def __init__(self,area_trabajo:int,sueldo:int,inicio_contrato:date,rut:str,
                  nombre:str,direccion:str,telefono:str,correo:str,user:str,password:str, rol_admin:bool, estado:str):
         super().__init__(rut,nombre,direccion,telefono,correo,
                          user,password)
@@ -15,11 +15,11 @@ class empleado(persona):
         self._estado = estado  # Estado inicial del empleado
         
     @property
-    def area_trabajo(self)-> str:
+    def area_trabajo(self)-> int:
         return self._area_trabajo
     
     @area_trabajo.setter
-    def area_trabajo (self,valor:str)-> None:
+    def area_trabajo (self,valor:int)-> None:
         self._area_trabajo = valor
     
     @property
