@@ -15,12 +15,12 @@ class EmpleadoDAO:
         cursor: Cursor = conn.cursor()
         try:
             cursor.execute("""
-                INSERT INTO empleado (rut, nombre, direccion, telefono, correo, user, password, area_trabajo, sueldo, inicio_contrato, rol_admin)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO empleado (rut, nombre, direccion, telefono, correo, user, password, area_trabajo, sueldo, inicio_contrato, rol_admin, estado)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (Persona.rut, Persona.nombre, Persona.direccion, Persona.telefono,
                 Persona.correo, Persona.user, Persona.password,
                 empleado.area_trabajo, empleado.sueldo,
-                empleado.inicio_contrato.isoformat(), empleado.rol_admin))
+                empleado.inicio_contrato.isoformat(), empleado.rol_admin), empleado.estado)
             conn.commit()
             return True
         except Exception as e:
