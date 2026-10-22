@@ -61,7 +61,7 @@ ecotech-gestion-empresarial/
 │   ├── departamento.py     [listo]  
 │   ├── departamento_dao.py  
 │   ├── empleado.py         [listo]
-│   ├── empleado_dao.py     [proceso]
+│   ├── empleado_dao.py     [revisar]
 │   └── proyecto.py         [listo]
 │   ├── proyecto_dao.py
 │   ├── tiempo.py           [listo]

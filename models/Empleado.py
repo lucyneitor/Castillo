@@ -35,7 +35,7 @@ class empleado(persona):
         self._sueldo = valor
 
     @property
-    def inicio_contrato (self)-> str:
+    def inicio_contrato (self)-> date:
             return self._inicio_contrato
         
     @inicio_contrato.setter
