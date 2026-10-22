@@ -45,6 +45,17 @@ class empleado(persona):
     @rol_admin.setter
     def rol_admin(self, valor:bool)-> None:
         self._rol_admin = valor
+
+    @property
+    def estado(self) -> str:
+        return self._estado
+
+    @estado.setter
+    def estado(self, valor: str) -> None:
+        if valor in ESTADO:
+            self._estado = valor
+        else:
+            raise ValueError(f"Estado inválido. Debe ser uno de: {', '.join(ESTADO)}")
     
     def __repr__(self) -> str:
-            return f"Empleado:(area_trabajo={self._area_trabajo}, sueldo={self._sueldo}, inicio_contrato={self._inicio_contrato}, rol_admin={self._rol_admin})"
+            return f"Empleado:(area_trabajo={self._area_trabajo}, sueldo={self._sueldo}, inicio_contrato={self._inicio_contrato}, rol_admin={self._rol_admin}, estado={self._estado})"
