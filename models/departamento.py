@@ -10,19 +10,13 @@ class Departamento:
         self.empleado = empleado 
 
     @property
-    def id_departamento(self)-> int:
-        return self._id_departamento
-
-    @id_departamento.setter
-    def id_departamento(self, value: int)-> None:
-        self._id_departamento = value
-
-    @property
     def nombre(self)-> str:
         return self._nombre
 
     @nombre.setter
     def nombre(self, value: str)-> None:
+        if not isinstance(value, str) or len(value.strip())<3:
+            raise ValueError("El nombre debe ser al menos 3 caracteres")
         self._nombre = value
 
     @property
@@ -31,6 +25,8 @@ class Departamento:
     
     @gerente.setter
     def gerente(self, value: str)-> None:
+        if not isinstance (value,str) or len(value.strip())<3:
+            raise ValueError("el nombre del gerente debe ser al menos de 3 caracteres")
         self._gerente = value
 
     @property
@@ -39,6 +35,8 @@ class Departamento:
 
     @presupuesto.setter
     def presupuesto(self, value: float)-> None:
+        if not isinstance(value, float):
+            raise ValueError("El valor debe ser un numero")
         self._presupuesto = value
 
     def __repr__(self):

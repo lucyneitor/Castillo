@@ -20,6 +20,8 @@ class empleado(persona):
     
     @area_trabajo.setter
     def area_trabajo (self,valor:int)-> None:
+        if not isinstance(valor, str) or len(valor.strip())<3:
+            raise ValueError("El area de trabajo debe ser de almenos 3 carateres")
         self._area_trabajo = valor
     
     @property
@@ -28,6 +30,8 @@ class empleado(persona):
     
     @sueldo.setter
     def sueldo (self, valor:int)-> None:
+        if not isinstance(valor,int) or valor < 0:
+            raise ValueError("El sueldo debe ser un numero y no debe ser negativo")
         self._sueldo = valor
 
     @property
@@ -36,6 +40,8 @@ class empleado(persona):
         
     @inicio_contrato.setter
     def inicio_contrato(self,valor:date) -> None:
+        if not isinstance(valor,date):
+            raise ValueError("El dato ingresado debe ser una fecha")
         self._inicio_contrato = valor
 
     @property
@@ -44,6 +50,8 @@ class empleado(persona):
 
     @rol_admin.setter
     def rol_admin(self, valor:bool)-> None:
+        if not isinstance(valor, bool):
+            raise ValueError("El rol de administrador debe ser un booleano")
         self._rol_admin = valor
 
     @property
