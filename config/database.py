@@ -47,7 +47,7 @@ class Database:
                 inicio_contrato DATE NOT NULL,
                 rol_admin BOOLEAN NOT NULL,
                 estado TEXT NOT NULL,
-                FOREIGN KEY (area_trabajo) REFERENCES departamento(id_departamento) ON DELETE SET NULL
+                FOREIGN KEY (id_departamento) REFERENCES departamento(id_departamento) ON DELETE SET NULL
             )
             """)
 

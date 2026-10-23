@@ -2,13 +2,13 @@ from sqlite3 import Cursor
 from config.database import Database
 from models.Empleado import empleado
 from models.departamento import Departamento
-from models.Proyecto import Proyecto
+from models.proyecto import Proyecto
 from models.Tiempo import Tiempo 
 from models.informe import Informe
 
-class InformeDAO:
-
-    def obtener_empleado(self):
+class Informedao:
+    @staticmethod
+    def obtener_empleado():
         conn = Database().get_connection()
         try:
             cursor: Cursor = conn.cursor()
@@ -22,8 +22,8 @@ class InformeDAO:
             return False
         finally:
             conn.close()
-            
-    def obtener_departamento(self):
+    @staticmethod
+    def obtener_departamento():
         conn = Database().get_connection()
         try:
             cursor: Cursor = conn.cursor()
@@ -36,8 +36,8 @@ class InformeDAO:
             return False
         finally:
             conn.close()
-            
-    def obtener_tiempo_proyecto(self):
+    @staticmethod
+    def obtener_tiempo_proyecto():
         conn = Database().get_connection()
         try:
             cursor: Cursor = conn.cursor()
