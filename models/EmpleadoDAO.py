@@ -47,12 +47,35 @@ class EmpleadoDAO:
             """)
             filas = cursor.fetchall()
             for fila in filas:
-                departamentos.append(empleado(fila['nombre'], fila['piso'], fila['id_departamento'])) #imcompleto
+                departamentos.append(empleado(fila['rut'], fila['nombre'], fila['correo'], fila['nombre_departamento'], fila['sueldo'], fila['inicio_contrato'], fila['estado'])) #imcompleto
         except Exception as e:
             print(f"Error al obtener empleados de BD: {e}")
         finally:
             conn.close()
         return departamentos
+
+    @staticmethod
+    def obtener_todos_empleado_estado(estado: str) -> list[empleado]:
+        """
+        Obtiene todos los empleados de la base de datos por su estado.
+        """
+        conn = Database().get_connection()
+        empleados = []
+        try:
+            cursor: Cursor = conn.cursor()
+            cursor.execute(
+                "SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado FROM empleado e, departamento d WHERE e.id_departamento = d.id_departamento AND estado = ?",
+                (estado)
+            )
+            filas = cursor.fetchall()
+            for fila in filas:
+                empleados.append(empleado(fila['rut'], fila['nombre'], fila['correo'], fila['nombre_departamento'], fila['sueldo'], fila['inicio_contrato'])) 
+        except Exception as e:
+            print(f"Error al obtener empleados por estado de BD: {e}")
+        finally:
+            conn.close()
+        return empleados
+    
     @staticmethod
     def obtener_empleado_por_rut(rut: str) -> empleado:
         """
@@ -74,18 +97,11 @@ class EmpleadoDAO:
         """
         Actualiza los datos de un empleado en la base de datos.
         """
-            
         conn = Database().get_connection()
         cursor: Cursor = conn.cursor()
         try:
-            cursor.execute("""
-                UPDATE empleado
-                SET nombre = ?, direccion = ?, telefono = ?, correo = ?, user = ?, password = ?,
-                    area_trabajo = ?, sueldo = ?, inicio_contrato = ?, rol_admin = ?, estado = ?
-                WHERE rut = ?
-            """, (empleado.nombre, empleado.direccion, empleado.telefono, empleado.correo,
-                  empleado.user, empleado.password, empleado.area_trabajo, empleado.sueldo,
-                  empleado.inicio_contrato, empleado.rol_admin, empleado.estado, empleado.rut))
+            cursor.execute("UPDATE empleado SET nombre = ?, direccion = ?, telefono = ?, correo = ?, user = ?, password = ?, area_trabajo = ?, sueldo = ?, inicio_contrato = ?, rol_admin = ?, estado = ? WHERE rut = ?",
+                (empleado.nombre, empleado.direccion, empleado.telefono, empleado.correo, empleado.user, empleado.password, empleado.area_trabajo, empleado.sueldo, empleado.inicio_contrato, empleado.rol_admin, empleado.estado, empleado.rut))
             conn.commit()
             return cursor.rowcount > 0
         except Exception as e:
@@ -93,6 +109,7 @@ class EmpleadoDAO:
             return False
         finally:
             conn.close()
+
     @staticmethod # revisar
     def eliminar_empleado(rut: str) -> bool:
         """
