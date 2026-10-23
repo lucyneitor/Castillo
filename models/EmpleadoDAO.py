@@ -1,6 +1,7 @@
 from sqlite3 import Cursor
 from config.database import Database
 from models.Empleado import empleado
+from models.departamento import Departamento
 
 class EmpleadoDAO:
     """
@@ -36,30 +37,31 @@ class EmpleadoDAO:
         Obtiene todos los empleados de la base de datos.
         """
         conn = Database().get_connection()
-        cursor: Cursor = conn.cursor()
+        departamentos = []
         try:
+            cursor: Cursor = conn.cursor()
             cursor.execute("""
-                SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato
+                SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado
                 FROM empleado e, departamento d 
                 WHERE e.id_departamento = d.id_departamento
             """)
-            empleados = cursor.fetchall()
-            return empleados
+            filas = cursor.fetchall()
+            for fila in filas:
+                departamentos.append(empleado(fila['nombre'], fila['piso'], fila['id_departamento'])) #imcompleto
         except Exception as e:
             print(f"Error al obtener empleados de BD: {e}")
-            return []
         finally:
             conn.close()
+        return departamentos
     @staticmethod
     def obtener_empleado_por_rut(rut: str) -> empleado:
         """
         Obtiene un empleado de la base de datos por su RUT.
         """
-        db = Database()
-        conn = db.get_connection()
+        conn = Database().get_connection()
         cursor: Cursor = conn.cursor()
         try:
-            cursor.execute("SELECT * FROM empleado WHERE rut = ?", (rut,))
+            cursor.execute("SELECT nombre, correo, user, area_trabajo, sueldo, inicio_contrato, NVL2(rol_admin, 'Administrador', 'Empleado') AS rol, estado FROM empleado WHERE rut = ?", (rut,))
             empleado_data = cursor.fetchone()
             if empleado_data: #corregir
                 return empleado(*empleado_data)   
@@ -72,8 +74,8 @@ class EmpleadoDAO:
         """
         Actualiza los datos de un empleado en la base de datos.
         """
-        db = Database()
-        conn = db.get_connection()
+            
+        conn = Database().get_connection()
         cursor: Cursor = conn.cursor()
         try:
             cursor.execute("""
@@ -96,8 +98,7 @@ class EmpleadoDAO:
         """
         Elimina un empleado de la base de datos por su RUT.
         """
-        db = Database()
-        conn = db.get_connection()
+        conn = Database().get_connection()
         cursor: Cursor = conn.cursor()
         try:
             cursor.execute("DELETE FROM empleado WHERE rut = ?", (rut,))
