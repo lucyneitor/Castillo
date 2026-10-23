@@ -2,7 +2,7 @@ from models.Empleado import empleado
 
 # atributos clave id_departamento, nombre, gerente, presupuesto
 class Departamento:
-    def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:float, empleado:empleado):
+    def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:int, empleado:empleado):
         self.id_departamento = id_departamento
         self.nombre = nombre
         self.gerente = gerente
@@ -34,8 +34,8 @@ class Departamento:
         return self._presupuesto
 
     @presupuesto.setter
-    def presupuesto(self, value: float)-> None:
-        if not isinstance(value, float):
+    def presupuesto(self, value: int)-> None:
+        if not isinstance(value, int):
             raise ValueError("El valor debe ser un numero")
         self._presupuesto = value
 
