@@ -42,7 +42,7 @@ class Database:
                 correo TEXT NOT NULL,
                 user TEXT NOT NULL,
                 password TEXT NOT NULL,
-                area_trabajo INTEGER NOT NULL, --area de trabajo = departamento
+                id_departamento INTEGER NOT NULL, --area de trabajo = departamento --area_trabajo
                 sueldo INTEGER NOT NULL,
                 inicio_contrato DATE NOT NULL,
                 rol_admin BOOLEAN NOT NULL,
