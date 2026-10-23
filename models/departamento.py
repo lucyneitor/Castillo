@@ -1,18 +1,13 @@
+from models.Empleado import empleado
+
 # atributos clave id_departamento, nombre, gerente, presupuesto
 class Departamento:
-    def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:float):
+    def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:int, empleado:empleado):
         self.id_departamento = id_departamento
         self.nombre = nombre
         self.gerente = gerente
         self.presupuesto = presupuesto
-
-    @property
-    def id_departamento(self)-> int:
-        return self._id_departamento
-
-    @id_departamento.setter
-    def id_departamento(self, value: int)-> None:
-        self._id_departamento = value
+        self.empleado = empleado 
 
     @property
     def nombre(self)-> str:
@@ -20,6 +15,8 @@ class Departamento:
 
     @nombre.setter
     def nombre(self, value: str)-> None:
+        if not isinstance(value, str) or len(value.strip())<3:
+            raise ValueError("El nombre debe ser al menos 3 caracteres")
         self._nombre = value
 
     @property
@@ -28,6 +25,8 @@ class Departamento:
     
     @gerente.setter
     def gerente(self, value: str)-> None:
+        if not isinstance (value,str) or len(value.strip())<3:
+            raise ValueError("el nombre del gerente debe ser al menos de 3 caracteres")
         self._gerente = value
 
     @property
@@ -35,7 +34,9 @@ class Departamento:
         return self._presupuesto
 
     @presupuesto.setter
-    def presupuesto(self, value: float)-> None:
+    def presupuesto(self, value: int)-> None:
+        if not isinstance(value, int):
+            raise ValueError("El valor debe ser un numero")
         self._presupuesto = value
 
     def __repr__(self):

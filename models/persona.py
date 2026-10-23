@@ -1,15 +1,22 @@
 from abc import ABC, abstractmethod
 
-class persona(ABC):
-    def __init__(self,rut:str,nombre:str,direccion:str,telefono:str,correo:str):
+class Persona(ABC):
+    def __init__(self,rut:str,nombre:str,direccion:str,telefono:str,
+                 correo:str,user:str,password:str):
         self.rut = rut
         self.nombre = nombre
         self.direccion = direccion
         self.telefono = telefono
         self.correo = correo
+<<<<<<< HEAD
         #self.objeto = objeto #ya esta construido (asociacion, agregacion)
         #self.objeto = Objeto(atributos del objeto) composicion
 
+=======
+        self.user = user
+        self.password = password
+        
+>>>>>>> 3fd7653cb4d64f2a3237ecae5a6e119b77ab3073
 # Obtencion de atributo mediante un metodo
     @property 
     def rut(self) -> str:

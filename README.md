@@ -59,18 +59,15 @@ ecotech-gestion-empresarial/
 │   └── main_controller.py
 ├── models/
 │   ├── departamento.py     [listo]  
-│   ├── departamento_dao.py  
-│   ├── empleado.py          
-│   ├── empleado_dao.py      
-│   └── proyecto.py
+│   ├── departamento_dao.py [proceso]
+│   ├── empleado.py         [listo]
+│   ├── empleado_dao.py     [revisar]
+│   └── proyecto.py         [listo]
 │   ├── proyecto_dao.py
-│   ├── usuario.py
-│   ├── usuario_dao.py
-│   ├── tiempo.py
+│   ├── tiempo.py           [listo]
 │   ├── tiempo_dao.py
-│   ├── administrador.py
-│   ├── administrador_dao.py
-│   ├── informe.py
+│   ├── persona.py          │   ├──
+│   ├── informe.py          [listo]
 │   └── informe_dao.py
 ├── views/
 │   ├── __init__.py

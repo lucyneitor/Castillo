@@ -1,21 +1,19 @@
 # Informe (id_informe, fecha, tipo, formato)
 from datetime import date
+from models.Empleado import empleado
 
 
 class Informe:
-    def __init__(self, id_informe:int, fecha:date, tipo:str, formato:str):
+    def __init__(self, id_informe:int, fecha:date, tipo:str, formato:str, empleado:empleado):
         self.id_informe = id_informe
         self.fecha = fecha
         self.tipo = tipo
         self.formato = formato
+        self.empleado = empleado
 
     @property
     def id_informe(self)-> int:
         return self._id_informe
-
-    @id_informe.setter
-    def id_informe(self, value: int)-> None:
-        self._id_informe = value
 
     @property
     def fecha(self)-> date:
@@ -23,6 +21,8 @@ class Informe:
 
     @fecha.setter
     def fecha(self, value: date)-> None:
+        if not isinstance(value,date):
+            raise ValueError("El valor debe ser una fecha valida")
         self._fecha = value
 
     @property
@@ -31,6 +31,8 @@ class Informe:
 
     @tipo.setter
     def tipo(self, value: str)-> None:
+        if not isinstance(value,str) or not value:
+            raise ValueError("No se permiten datos vacios")
         self._tipo = value
 
     @property
@@ -39,6 +41,8 @@ class Informe:
 
     @formato.setter
     def formato(self, value: str)-> None:
+        if not isinstance(value,str) and value < 3:
+            raise ValueError("El formato debe tener más de 3 caracteres")
         self._formato = value
 
     def __repr__(self):
