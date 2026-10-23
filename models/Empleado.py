@@ -4,25 +4,25 @@ from models.persona import persona
 ESTADO = ["activo", "inactivo", "vacaciones", "suspendido"] 
 
 class empleado(persona):
-    def __init__(self,area_trabajo:int,sueldo:int,inicio_contrato:date,rut:str,
+    def __init__(self,id_departamento:int,sueldo:int,inicio_contrato:date,rut:str,
                  nombre:str,direccion:str,telefono:str,correo:str,user:str,password:str, rol_admin:bool, estado:str):
         super().__init__(rut,nombre,direccion,telefono,correo,
                          user,password)
-        self._area_trabajo = area_trabajo
+        self._id_departamento = id_departamento
         self._sueldo = sueldo
         self._inicio_contrato = inicio_contrato
         self._rol_admin = rol_admin
         self._estado = estado  # Estado inicial del empleado
         
     @property
-    def area_trabajo(self)-> int:
-        return self._area_trabajo
+    def id_departamento(self)-> int:
+        return self._id_departamento
     
-    @area_trabajo.setter
-    def area_trabajo (self,valor:int)-> None:
+    @id_departamento.setter
+    def id_departamento (self,valor:int)-> None:
         if not isinstance(valor, int) or valor < 0:
             raise ValueError("Identificador de area de trabajo debe ser un número positivo")
-        self._area_trabajo = valor
+        self._id_departamento = valor
     
     @property
     def sueldo(self)->int:
@@ -60,7 +60,7 @@ class empleado(persona):
 
     @estado.setter
     def estado(self, valor: str) -> None:
-        if valor in ESTADO:
+        if isinstance(valor,str) and valor in ESTADO:
             self._estado = valor
         else:
             raise ValueError(f"Estado inválido. Debe ser uno de: {', '.join(ESTADO)}")
