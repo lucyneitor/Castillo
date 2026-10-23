@@ -6,16 +6,48 @@ from models.Proyecto import Proyecto
 from models.Tiempo import Tiempo 
 from models.informe import Informe
 
-class informeDAO:
+class InformeDAO:
 
-    def obtenerEmpleadoDepto(informe: Informe)-> bool:
+    def obtener_empleado(self):
         conn = Database().get_connection()
-        informe:None
         try:
             cursor: Cursor = conn.cursor()
-            cursor.execute("SELECT e.nombre, e.sueldo, e.inicio_contrato,d.nombre" \
-            "from empleado e, departamento d" \
-            "where e.id_departamento = d.departamento")
+            cursor.execute("""SELECT e.nombre, e.sueldo, e.inicio_contrato,d.nombre
+            from empleado e, departamento d
+            where e.id_departamento = d.id_departamento;""")
+            inf_empleado = cursor.fetchall()
+            return inf_empleado
+        except Exception as e:
+            print(f"Error al obtener informe en BD: {e}")
+            return False
+        finally:
+            conn.close()
+            
+    def obtener_departamento(self):
+        conn = Database().get_connection()
+        try:
+            cursor: Cursor = conn.cursor()
+            cursor.execute("""SELECT nombre, gerente, presupuesto
+                           from departamento;""")
+            inf_departamento = cursor.fetchall()
+            return inf_departamento
+        except Exception as e:
+            print(f"Error al obtener informe en BD: {e}")
+            return False
+        finally:
+            conn.close()
+            
+    def obtener_tiempo_proyecto(self):
+        conn = Database().get_connection()
+        try:
+            cursor: Cursor = conn.cursor()
+            cursor.execute("""SELECT e.nombre, e.rut, t.hora_entrada, t.hora_salida,
+                           p.nombre, p.fecha_inicio, p.fecha_fin
+                           from empleado e
+                           join tiempo t on e.rut = t.id_empleado
+                           join proyecto p on t.id_proyecto = p.id_proyecto""")
+            inf_tiempo_proyecto = cursor.fetchall()
+            return inf_tiempo_proyecto
         except Exception as e:
             print(f"Error al obtener informe en BD: {e}")
             return False
