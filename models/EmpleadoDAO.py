@@ -1,7 +1,6 @@
 from sqlite3 import Cursor
 from config.database import Database
 from models.Empleado import empleado
-from models.departamento import Departamento
 
 class EmpleadoDAO:
     """
@@ -40,11 +39,13 @@ class EmpleadoDAO:
         departamentos = []
         try:
             cursor: Cursor = conn.cursor()
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado
                 FROM empleado e, departamento d 
                 WHERE e.id_departamento = d.id_departamento
-            """)
+                """
+        )
             filas = cursor.fetchall()
             for fila in filas:
                 departamentos.append(empleado(fila['rut'], fila['nombre'], fila['correo'], fila['nombre_departamento'], fila['sueldo'], fila['inicio_contrato'], fila['estado'])) #imcompleto
@@ -64,8 +65,13 @@ class EmpleadoDAO:
         try:
             cursor: Cursor = conn.cursor()
             cursor.execute(
-                "SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado FROM empleado e, departamento d WHERE e.id_departamento = d.id_departamento AND estado = ?",
-                (estado)
+                """
+                SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado 
+                FROM empleado e, departamento d 
+                WHERE e.id_departamento = d.id_departamento 
+                AND estado = ?",
+                """,
+                (estado,)
             )
             filas = cursor.fetchall()
             for fila in filas:
@@ -84,7 +90,12 @@ class EmpleadoDAO:
         conn = Database().get_connection()
         cursor: Cursor = conn.cursor()
         try:
-            cursor.execute("SELECT nombre, correo, user, area_trabajo, sueldo, inicio_contrato, NVL2(rol_admin, 'Administrador', 'Empleado') AS rol, estado FROM empleado WHERE rut = ?", (rut,))
+            cursor.execute(
+                """
+                SELECT nombre, correo, user, area_trabajo, sueldo, inicio_contrato, NVL2(rol_admin, 'Administrador', 'Empleado') AS rol, estado 
+                FROM empleado WHERE rut = ?", 
+                """, (rut,)
+                )
             empleado_data = cursor.fetchone()
             if empleado_data: #corregir
                 return empleado(*empleado_data)   
@@ -100,8 +111,17 @@ class EmpleadoDAO:
         conn = Database().get_connection()
         cursor: Cursor = conn.cursor()
         try:
-            cursor.execute("UPDATE empleado SET nombre = ?, direccion = ?, telefono = ?, correo = ?, user = ?, password = ?, area_trabajo = ?, sueldo = ?, inicio_contrato = ?, rol_admin = ?, estado = ? WHERE rut = ?",
-                (empleado.nombre, empleado.direccion, empleado.telefono, empleado.correo, empleado.user, empleado.password, empleado.area_trabajo, empleado.sueldo, empleado.inicio_contrato, empleado.rol_admin, empleado.estado, empleado.rut))
+            cursor.execute(
+                """
+                UPDATE empleado SET nombre = ?, direccion = ?, telefono = ?, correo = ?, user = ?, password = ?, area_trabajo = ?, sueldo = ?, inicio_contrato = ?, rol_admin = ?, estado = ? 
+                WHERE rut = ?
+                """,
+                (
+                    empleado.nombre, empleado.direccion, empleado.telefono, empleado.correo,
+                    empleado.user, empleado.password, empleado.area_trabajo, empleado.sueldo, 
+                    empleado.inicio_contrato, empleado.rol_admin, empleado.estado, empleado.rut
+                )
+                )
             conn.commit()
             return cursor.rowcount > 0
         except Exception as e:
