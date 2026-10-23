@@ -65,39 +65,45 @@ class Database:
             """)
 
             # tabla departamento (id_departamento, nombre, gerente, presupuesto)
-            cursor.execute("""
-            CREATE TABLE IF NOT EXISTS departamento (
-                id_departamento INTEGER PRIMARY KEY,
-                nombre TEXT NOT NULL,
-                gerente TEXT NOT NULL,
-                presupuesto INTEGER NOT NULL
+            cursor.execute(
+                """
+                    CREATE TABLE IF NOT EXISTS departamento (
+                    id_departamento INTEGER PRIMARY KEY,
+                    nombre TEXT NOT NULL,
+                    gerente TEXT NOT NULL,
+                    presupuesto INTEGER NOT NULL
+                    FOREIGN KEY (gerente) REFERENCES empleado(rut) ON DELETE SET NULL
+                )
+                """
             )
-            """)
 
             # tabla tiempo (id_tiempo, fecha, hora_entrada, hora_salida)
-            cursor.execute("""
-            CREATE TABLE IF NOT EXISTS tiempo (
-                id_tiempo INTEGER PRIMARY KEY,
-                fecha DATE NOT NULL,
-                hora_entrada TIME NOT NULL,
-                hora_salida TIME NOT NULL,
-                id_empleado TEXT NOT NULL,
-                id_proyecto INTEGER NOT NULL,
-                FOREIGN KEY (id_empleado) REFERENCES empleado(rut) ON DELETE SET NULL,
-                FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto) ON DELETE SET NULL
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS tiempo (
+                    id_tiempo INTEGER PRIMARY KEY,
+                    fecha DATE NOT NULL,
+                    hora_entrada TIME NOT NULL,
+                    hora_salida TIME NOT NULL,
+                    id_empleado TEXT NOT NULL,
+                    id_proyecto INTEGER NOT NULL,
+                    FOREIGN KEY (id_empleado) REFERENCES empleado(rut) ON DELETE SET NULL,
+                    FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto) ON DELETE SET NULL
+                )
+                """
             )
-            """)
             # tabla proyecto (id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin) /revisar diagramas
-            cursor.execute("""
-            CREATE TABLE IF NOT EXISTS proyecto (
-                id_proyecto INTEGER PRIMARY KEY,
-                nombre TEXT NOT NULL,
-                descripcion TEXT NOT NULL,
-                fecha_inicio DATE NOT NULL,
-                fecha_fin DATE NOT NULL
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS proyecto (
+                    id_proyecto INTEGER PRIMARY KEY,
+                    nombre TEXT NOT NULL,
+                    descripcion TEXT NOT NULL,
+                    fecha_inicio DATE NOT NULL,
+                    fecha_fin DATE NOT NULL
+                )
+                """
             )
-            """)
-
             conn.commit()
         finally:#pasa independientemente si falla o no el programa
             conn.close() #cierra conexión

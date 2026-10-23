@@ -15,13 +15,17 @@ class EmpleadoDAO:
         conn = Database().get_connection()
         try:
             cursor: Cursor = conn.cursor()
-            cursor.execute("""
+            cursor.execute(
+                """
                 INSERT INTO empleado (rut, nombre, direccion, telefono, correo, user, password, area_trabajo, sueldo, inicio_contrato, rol_admin, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (empleado.rut, empleado.nombre, empleado.direccion, empleado.telefono,
-                  empleado.correo, empleado.user, empleado.password,
-                  empleado.area_trabajo, empleado.sueldo,
-                  empleado.inicio_contrato, empleado.rol_admin, empleado.estado))
+                """, 
+                (
+                    empleado.rut, empleado.nombre, empleado.direccion, empleado.telefono,
+                    empleado.correo, empleado.user, empleado.password, empleado.area_trabajo, 
+                    empleado.sueldo, empleado.inicio_contrato, empleado.rol_admin, empleado.estado
+                )
+            )
             conn.commit()
             return True
         except Exception as e:
@@ -45,7 +49,7 @@ class EmpleadoDAO:
                 FROM empleado e, departamento d 
                 WHERE e.id_departamento = d.id_departamento
                 """
-        )
+            )
             filas = cursor.fetchall()
             for fila in filas:
                 departamentos.append(empleado(fila['rut'], fila['nombre'], fila['correo'], fila['nombre_departamento'], fila['sueldo'], fila['inicio_contrato'], fila['estado'])) #imcompleto
@@ -69,7 +73,7 @@ class EmpleadoDAO:
                 SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado 
                 FROM empleado e, departamento d 
                 WHERE e.id_departamento = d.id_departamento 
-                AND estado = ?",
+                AND estado = ?
                 """,
                 (estado,)
             )
@@ -93,7 +97,7 @@ class EmpleadoDAO:
             cursor.execute(
                 """
                 SELECT nombre, correo, user, area_trabajo, sueldo, inicio_contrato, NVL2(rol_admin, 'Administrador', 'Empleado') AS rol, estado 
-                FROM empleado WHERE rut = ?", 
+                FROM empleado WHERE rut = ?
                 """, (rut,)
                 )
             empleado_data = cursor.fetchone()
