@@ -71,7 +71,7 @@ class Database:
                     id_departamento INTEGER PRIMARY KEY,
                     nombre TEXT NOT NULL,
                     gerente TEXT NOT NULL,
-                    presupuesto INTEGER NOT NULL
+                    presupuesto INTEGER NOT NULL,
                     FOREIGN KEY (gerente) REFERENCES empleado(rut) ON DELETE SET NULL
                 )
                 """
@@ -105,6 +105,8 @@ class Database:
                 """
             )
             conn.commit()
+        except sqlite3.Error as e: 
+            print(f"Error al inicializar la base de datos: {e}")
         finally:#pasa independientemente si falla o no el programa
             conn.close() #cierra conexión
 

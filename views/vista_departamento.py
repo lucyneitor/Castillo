@@ -1,11 +1,11 @@
 from models.departamento import Departamento
-from models.departamentoDAO import departamentoDAO #hacer controllers
+from models.departamentoDAO import DepartamentoDAO #hacer controllers
 
 
 class DepartamentoView:
     @staticmethod
     def listar_departamentos():
-        departamentos = departamentoDAO.obtener_todos_departamentos()
+        departamentos = DepartamentoDAO.obtener_todos_departamentos()
         if not departamentos:
             print("No hay departamentos registrados.")
             return
@@ -24,7 +24,7 @@ class DepartamentoView:
 
         departamento = Departamento(id_departamento, nombre, gerente, presupuesto)
 
-        if departamentoDAO.agregar_departamento(departamento):
+        if DepartamentoDAO.agregar_departamento(departamento):
             print("Departamento agregado correctamente.")
         else:
             print("No se pudo agregar el departamento.")
@@ -32,7 +32,7 @@ class DepartamentoView:
     @staticmethod
     def buscar_departamento():
         id_departamento = int(input("Ingrese ID del departamento: "))
-        departamento = departamentoDAO.obtener_departamento_por_id(id_departamento)
+        departamento = DepartamentoDAO.obtener_departamento_por_id(id_departamento)
 
         if departamento:
             print(f"\nID: {departamento.id_departamento}")
@@ -45,7 +45,7 @@ class DepartamentoView:
     @staticmethod
     def actualizar_departamento():
         id_departamento = int(input("Ingrese ID del departamento a actualizar: "))
-        departamento = departamentoDAO.obtener_departamento_por_id(id_departamento)
+        departamento = DepartamentoDAO.obtener_departamento_por_id(id_departamento)
 
         if not departamento:
             print("Departamento no encontrado.")
@@ -61,7 +61,7 @@ class DepartamentoView:
         departamento.nombre = nuevo_nombre
         departamento.gerente = nuevo_gerente
 
-        if departamentoDAO.actualizar_departamento(departamento):
+        if DepartamentoDAO.actualizar_departamento(departamento):
             print("Departamento actualizado correctamente.")
         else:
             print("No se pudo actualizar el departamento.")
@@ -69,7 +69,7 @@ class DepartamentoView:
     @staticmethod
     def eliminar_departamento():
         id_departamento = int(input("Ingrese ID del departamento a eliminar: "))
-        if departamentoDAO.eliminar_departamento(id_departamento):
+        if DepartamentoDAO.eliminar_departamento(id_departamento):
             print("Departamento eliminado correctamente.")
         else:
             print("No se pudo eliminar el departamento.")

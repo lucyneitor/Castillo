@@ -2,7 +2,7 @@ from sqlite3 import Cursor
 from config.database import Database
 from models.Proyecto import Proyecto
 
-class Proyectodao:
+class ProyectoDAO:
     @staticmethod
     def agregar_proyecto(proyecto_obj: Proyecto):
         conn = Database().get_connection()

@@ -6,7 +6,7 @@ from models.Proyecto import Proyecto #
 from models.Tiempo import Tiempo #
 from models.informe import Informe #
 
-class Informedao:
+class InformeDAO:
     @staticmethod
     def obtener_empleado():
         conn = Database().get_connection()

@@ -4,7 +4,7 @@ from models.Tiempo import Tiempo
 #from models.persona import persona #no lo ocupa
 #from models.Proyecto import Proyecto #no lo ocupa
 
-class tiempo_dao:
+class TiempoDAO:
     @staticmethod
     def agregar_tiempo(tiempo:Tiempo):
         conn = Database().get_connection()

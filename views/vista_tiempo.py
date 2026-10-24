@@ -1,11 +1,11 @@
 from models.Tiempo import Tiempo
-from models.TiempoDAO import tiempo_dao #hacer controllers
+from models.TiempoDAO import TiempoDAO #hacer controllers
 
 
 class TiempoView:
     @staticmethod
     def listar_tiempos():
-        tiempos = tiempo_dao.obtener_tiempos()
+        tiempos = TiempoDAO.obtener_tiempos()
         if not tiempos:
             print("No hay tiempos registrados.")
             return
@@ -32,7 +32,7 @@ class TiempoView:
             id_proyecto=id_proyecto
         )
 
-        if tiempo_dao.agregar_tiempo(tiempo):
+        if TiempoDAO.agregar_tiempo(tiempo):
             print("Tiempo agregado correctamente.")
         else:
             print("No se pudo agregar el tiempo.")
@@ -40,7 +40,7 @@ class TiempoView:
     @staticmethod
     def buscar_tiempo():
         id_tiempo = int(input("Ingrese ID del tiempo: "))
-        tiempo = tiempo_dao.obtener_tiempo_id(id_tiempo)
+        tiempo = TiempoDAO.obtener_tiempo_id(id_tiempo)
 
         if tiempo:
             print(f"\nID: {tiempo.id_tiempo}")
@@ -55,7 +55,7 @@ class TiempoView:
     @staticmethod
     def actualizar_tiempo():
         id_tiempo = int(input("Ingrese ID del tiempo a actualizar: "))
-        tiempo = tiempo_dao.obtener_tiempo_id(id_tiempo)
+        tiempo = TiempoDAO.obtener_tiempo_id(id_tiempo)
 
         if not tiempo:
             print("Tiempo no encontrado.")
@@ -74,7 +74,7 @@ class TiempoView:
         tiempo.id_empleado = nuevo_id_empleado
         tiempo.id_proyecto = nuevo_id_proyecto
 
-        if tiempo_dao.actualizar_tiempo(tiempo):
+        if TiempoDAO.actualizar_tiempo(tiempo):
             print("Tiempo actualizado correctamente.")
         else:
             print("No se pudo actualizar el tiempo.")
@@ -82,7 +82,7 @@ class TiempoView:
     @staticmethod
     def eliminar_tiempo():
         id_tiempo = int(input("Ingrese ID del tiempo a eliminar: "))
-        if tiempo_dao.eliminar_tiempo(id_tiempo):
+        if TiempoDAO.eliminar_tiempo(id_tiempo):
             print("Tiempo eliminado correctamente.")
         else:
             print("No se pudo eliminar el tiempo.")

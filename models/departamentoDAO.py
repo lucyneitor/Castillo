@@ -1,9 +1,9 @@
-from sqlite3 import Cursor, sqlite3
+from sqlite3 import Cursor
 from config.database import Database
-from models.Empleado import empleado
+#from models.Empleado import empleado
 from models.departamento import Departamento
 
-class departamentodao: #primer bsoquejo
+class DepartamentoDAO: #primer bsoquejo
     """
     Data Access Object para la entidad Paciente.
     Maneja todas las operaciones CRUD en la base de datos.
