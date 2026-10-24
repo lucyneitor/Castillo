@@ -54,7 +54,7 @@ class tiempo_dao:
             tiempo_data = cursor.fetchall()
             return tiempo_data
         except Exception as e:
-            print(f"Error al agregar tiempo en BD: {e}")
+            print(f"Error al obtener tiempo en BD: {e}")
             return False
         finally:
             conn.close()
@@ -69,13 +69,15 @@ class tiempo_dao:
                            hora_entrada = ?,
                            hora_salida = ?,
                            id_empleado = ?,
-                           id_proyecto = ? """,
+                           id_proyecto = ? 
+                           WHERE id_tiempo = ?""",
                            (tiempo_obj.fecha,
                             tiempo_obj.hora_entrada,
                             tiempo_obj.hora_salida,
                             tiempo_obj.id_empleado,
-                            tiempo_obj.id_proyecto))
-            conn.commit
+                            tiempo_obj.id_proyecto,
+                            tiempo_obj.id_tiempo))
+            conn.commit()
             return cursor.rowcount > 0
         except Exception as e:
             print(f"Error al actualizar tiempo en BD: {e}")
@@ -88,12 +90,12 @@ class tiempo_dao:
         conn = Database().get_connection()
         try:
             cursor : Cursor = conn.cursor()
-            cursor.execute("""DETELE from tiempo 
+            cursor.execute("""DELETE from tiempo 
                            WHERE id_tiempo = ?""", (id_tiempo,))
             conn.commit()
             return cursor.rowcount > 0
         except Exception as e:
-            print(f"Error al actualizar tiempo en BD: {e}")
+            print(f"Error al eliminar tiempo en BD: {e}")
             return False
         finally:
             conn.close()
