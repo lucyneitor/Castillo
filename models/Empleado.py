@@ -64,6 +64,20 @@ class empleado(persona):
             self._estado = valor
         else:
             raise ValueError(f"Estado inválido. Debe ser uno de: {', '.join(ESTADO)}")
+
+    def mostrar_detalle(self) -> str:
+        return (
+            f"RUT: {self.rut}\n"
+            f"Nombre: {self.nombre}\n"
+            f"Dirección: {self.direccion}\n"
+            f"Teléfono: {self.telefono}\n"
+            f"Correo: {self.correo}\n"
+            f"ID de departamento: {self.id_departamento}\n"
+            f"Sueldo: {self.sueldo}\n"
+            f"Inicio de contrato: {self.inicio_contrato}\n"
+            f"Administrador: {'Sí' if self.rol_admin else 'No'}\n"
+            f"Estado: {self.estado}"
+        )
     
     def __repr__(self) -> str:
-            return f"Empleado:(area_trabajo={self._area_trabajo}, sueldo={self._sueldo}, inicio_contrato={self._inicio_contrato}, rol_admin={self._rol_admin}, estado={self._estado})"
+            return f"Empleado:(id_departamento={self.id_departamento}, sueldo={self.sueldo}, inicio_contrato={self.inicio_contrato}, rol_admin={self.rol_admin}, estado={self.estado})"
