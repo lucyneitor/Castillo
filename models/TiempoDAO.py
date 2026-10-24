@@ -1,8 +1,8 @@
 from sqlite3 import Cursor 
 from config.database import Database
 from models.Tiempo import Tiempo
-from models.persona import persona
-from models.proyecto import Proyecto
+#from models.persona import persona #no lo ocupa
+#from models.Proyecto import Proyecto #no lo ocupa
 
 class tiempo_dao:
     @staticmethod
@@ -37,7 +37,7 @@ class tiempo_dao:
             cursor : Cursor = conn.cursor()
             cursor.execute("""SELECT * FROM tiempo WHERE id_tiempo = ?""",
                            (id_tiempo,))
-            tiempo_data = cursor.fetchone()
+            tiempo_data = cursor.fetchone() #corregir para que devuelva
             return tiempo_data
         except Exception as e:
             print(f"Error al obtener tiempo en BD: {e}")
@@ -51,7 +51,7 @@ class tiempo_dao:
         try:
             cursor : Cursor = conn.cursor()
             cursor.execute("""SELECT * FROM tiempo""")
-            tiempo_data = cursor.fetchall()
+            tiempo_data = cursor.fetchall() #corregir para que devuelva
             return tiempo_data
         except Exception as e:
             print(f"Error al obtener tiempo en BD: {e}")

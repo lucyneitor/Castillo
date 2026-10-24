@@ -2,7 +2,7 @@ from sqlite3 import Cursor
 from config.database import Database
 from models.Empleado import empleado
 from models.departamento import Departamento
-from models.proyecto import Proyecto
+from models.Proyecto import Proyecto #
 from models.Tiempo import Tiempo 
 from models.informe import Informe
 

@@ -109,8 +109,7 @@ class Database:
             conn.close() #cierra conexión
 
 if __name__ == "__main__":
-    db = Database()
-    db.init_db()
+    Database().init_db()
     print("Base de datos inicializada correctamente.")
 
             
