@@ -1,6 +1,6 @@
 from views.vista_principal import MainView
 from controllers.empleado_controller import EmpleadoController
-from controllers.departamento_controller import DepartamentoController
+from controllers.Departamento_controller import DepartamentoController
 from controllers.proyecto_controller import ProyectoController
 from controllers.tiempo_controller import TiempoController
 from controllers.informe_controller import InformeController
