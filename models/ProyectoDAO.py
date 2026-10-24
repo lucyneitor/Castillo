@@ -1,6 +1,6 @@
 from sqlite3 import Cursor
 from config.database import Database
-from models.proyecto import Proyecto
+from models.Proyecto import Proyecto
 
 class Proyectodao:
     @staticmethod

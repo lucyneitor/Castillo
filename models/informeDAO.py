@@ -1,10 +1,10 @@
 from sqlite3 import Cursor
 from config.database import Database
-from models.Empleado import empleado
-from models.departamento import Departamento
+from models.Empleado import empleado #
+from models.departamento import Departamento # 
 from models.Proyecto import Proyecto #
-from models.Tiempo import Tiempo 
-from models.informe import Informe
+from models.Tiempo import Tiempo #
+from models.informe import Informe #
 
 class Informedao:
     @staticmethod
