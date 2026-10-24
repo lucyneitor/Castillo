@@ -2,7 +2,7 @@ from models.Empleado import empleado
 
 # atributos clave id_departamento, nombre, gerente, presupuesto
 class Departamento:
-    def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:int, empleado:empleado):
+    def __init__(self, id_departamento:int, nombre:str, gerente:str, presupuesto:int):
         self.id_departamento = id_departamento
         self.nombre = nombre
         self.gerente = gerente
@@ -15,7 +15,7 @@ class Departamento:
 
     @nombre.setter
     def nombre(self, value: str)-> None:
-        if not isinstance(value, str) or len(value.strip())<3:
+        if not isinstance(value, str) or len(value.strip())>3:
             raise ValueError("El nombre debe ser al menos 3 caracteres")
         self._nombre = value
 

@@ -70,7 +70,7 @@ class Database:
                     CREATE TABLE IF NOT EXISTS departamento (
                     id_departamento INTEGER PRIMARY KEY,
                     nombre TEXT NOT NULL,
-                    gerente TEXT NOT NULL,
+                    gerente TEXT,
                     presupuesto INTEGER NOT NULL,
                     FOREIGN KEY (gerente) REFERENCES empleado(rut) ON DELETE SET NULL
                 )

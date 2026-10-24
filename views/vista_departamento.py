@@ -1,5 +1,6 @@
 from models.departamento import Departamento
-from models.departamentoDAO import DepartamentoDAO #hacer controllers
+from models.departamentoDAO import DepartamentoDAO
+from views.utils import leer_numero #hacer controllers
 
 
 class DepartamentoView:
@@ -17,10 +18,14 @@ class DepartamentoView:
     @staticmethod
     def agregar_departamento():
         print("\n--- AGREGAR DEPARTAMENTO ---")
-        id_departamento = int(input("ID departamento: "))
-        nombre = input("Nombre: ")
-        gerente = input("RUT gerente: ")
-        presupuesto = float(input("Presupuesto: "))
+        try:
+            id_departamento = leer_numero("ID departamento: ")
+            nombre = input("Nombre: ")
+            gerente = input("RUT gerente: ")
+            presupuesto = leer_numero("Presupuesto: ")
+        except ValueError as e:
+            print(f"Error: {e}")
+            return
 
         departamento = Departamento(id_departamento, nombre, gerente, presupuesto)
 

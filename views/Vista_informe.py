@@ -1,6 +1,5 @@
 from models.informeDAO import InformeDAO 
 
-
 class InformeView:
     @staticmethod
     def mostrar_empleados():
