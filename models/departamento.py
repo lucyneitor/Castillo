@@ -30,7 +30,7 @@ class Departamento:
         self._gerente = value
 
     @property
-    def presupuesto(self)-> float:
+    def presupuesto(self)-> int:
         return self._presupuesto
 
     @presupuesto.setter
