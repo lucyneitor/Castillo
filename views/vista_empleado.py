@@ -15,6 +15,7 @@ class VistaEmpleado:
             print("-" * 35)
             print("1. Ver información de empleados")
             print("2. Modificar información de un empleado")
+            print("3. Crear un nuevo empleado")
             print("0. Volver al menú anterior")
             print("-" * 35)
 
@@ -24,10 +25,12 @@ class VistaEmpleado:
                 VistaEmpleado.mostrar_empleados()
             elif opcion == 2:
                 VistaEmpleado.modificar_empleado()
+            elif opcion == 3:
+                VistaEmpleado.crear_empleado()
             elif opcion == 0:
                 return
             else:
-                print("\nOpción no válida. Seleccione 1, 2 o 0.")
+                print("\nOpción no válida. Seleccione 1, 2, 3 o 0.")
 
     @staticmethod
     def mostrar_empleados() -> None:
@@ -95,7 +98,121 @@ class VistaEmpleado:
             print("Información del empleado actualizada correctamente.")
         else:
             print("No se actualizaron los datos. Verifique que el empleado exista.")
+    
+    @staticmethod
+    def crear_empleado() -> None:
+        print("\n" + "-" * 35)
+        print("CREAR NUEVO EMPLEADO")
+        print("-" * 35)
 
+        while True:
+            rut = input("RUT: ").strip()
+            if rut:
+                break
+            print("El RUT no puede estar vacío.")
+
+        while True:
+            nombre = input("Nombre: ").strip()
+            if len(nombre) >= 3:
+                break
+            print("El nombre debe tener al menos 3 caracteres.")
+
+        direccion = input("Dirección: ").strip()
+        while True:
+            telefono = input("Teléfono: ").strip()
+            if telefono:
+                break
+            print("El teléfono no puede estar vacío.")
+
+        while True:
+            correo = input("Correo: ").strip()
+            if "@" in correo and "." in correo:
+                break
+            print("Correo inválido. Debe incluir '@' y dominio.")
+
+        while True:
+            user = input("Usuario: ").strip()
+            if user:
+                break
+            print("El usuario no puede estar vacío.")
+
+        password = input("Contraseña: ").strip()
+        if not password:
+            print("La contraseña no puede estar vacía.")
+            return
+
+        while True:
+            try:
+                id_departamento = int(input("ID departamento: ").strip())
+                if id_departamento > 0:
+                    break
+                print("Debe ingresar un ID mayor a 0.")
+            except ValueError:
+                print("Debe ingresar un número entero válido.")
+
+        while True:
+            try:
+                sueldo = int(input("Sueldo: ").strip())
+                if sueldo > 0:
+                    break
+                print("El sueldo debe ser mayor que 0.")
+            except ValueError:
+                print("Debe ingresar un número entero válido.")
+
+        while True:
+            valor = input("Inicio de contrato (AAAA-MM-DD): ").strip()
+            if not valor:
+                print("La fecha de inicio no puede estar vacía.")
+                continue
+            try:
+                inicio_contrato = date.fromisoformat(valor)
+                break
+            except ValueError:
+                print("Fecha inválida. Use el formato AAAA-MM-DD.")
+
+        while True:
+            rol_admin = input("¿Es administrador? (s/n): ").strip().lower()
+            if rol_admin in ("s", "si", "sí"):
+                rol_admin = True
+                break
+            if rol_admin in ("n", "no"):
+                rol_admin = False
+                break
+            print("Responda s o n.")
+
+        while True:
+            estado = input(f"Estado ({', '.join(ESTADO)}): ").strip().lower()
+            if estado in ESTADO:
+                break
+            print(f"Estado inválido. Elija uno de estos valores: {', '.join(ESTADO)}")
+
+        try:
+            nuevo_empleado = empleado(
+                id_departamento=id_departamento,
+                sueldo=sueldo,
+                inicio_contrato=inicio_contrato,
+                rut=rut,
+                nombre=nombre,
+                direccion=direccion,
+                telefono=telefono,
+                correo=correo,
+                user=user,
+                password=password,
+                rol_admin=rol_admin,
+                estado=estado
+            )
+
+            guardado = EmpleadoDAO.agregar_empleado(nuevo_empleado)
+
+            if guardado:
+                print("\nEmpleado registrado correctamente.")
+            else:
+                print("\nNo se pudo registrar el empleado.")
+
+        except ValueError as error:
+            print(f"\nError al crear el empleado: {error}")
+        except sqlite3.Error as error:
+            print(f"\nError al guardar el empleado en BD: {error}")
     @staticmethod
     def _leer_texto(etiqueta: str, actual: str) -> str:
         valor = input(f"{etiqueta} [{actual}]: ").strip()

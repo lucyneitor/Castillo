@@ -21,12 +21,12 @@ class EmpleadoDAO:
             cursor: Cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO empleado (rut, nombre, direccion, telefono, correo, user, password, area_trabajo, sueldo, inicio_contrato, rol_admin, estado)
+                INSERT INTO empleado (rut, nombre, direccion, telefono, correo, user, password, id_departamento, sueldo, inicio_contrato, rol_admin, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, 
                 (
                     empleado.rut, empleado.nombre, empleado.direccion, empleado.telefono,
-                    empleado.correo, empleado.user, empleado.password, empleado.area_trabajo, 
+                    empleado.correo, empleado.user, empleado.password, empleado.id_departamento, 
                     empleado.sueldo, empleado.inicio_contrato, empleado.rol_admin, empleado.estado
                 )
             )
@@ -39,7 +39,7 @@ class EmpleadoDAO:
             conn.close()
 
     @staticmethod
-    def _crear_empleado(fila) -> empleado:
+    def crear_empleado(fila) -> empleado:
         inicio_contrato = fila["inicio_contrato"]
         if isinstance(inicio_contrato, str):
             inicio_contrato = date.fromisoformat(inicio_contrato)
