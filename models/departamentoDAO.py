@@ -45,9 +45,14 @@ class DepartamentoDAO: #primer bsoquejo
             departamentos = []
             cursor.execute(
                 """
-                SELECT id_departamento, nombre, e.nombre, presupuesto
-                FROM departamento d, empleado e
-                WHERE d.gerente = e.rut
+                SELECT
+                d.id_departamento,
+                d.nombre,
+                e.nombre AS nombre_gerente,
+                d.presupuesto
+                FROM departamento d
+                LEFT JOIN empleado e ON d.gerente = e.rut
+
                 """
             )
             departamentos = cursor.fetchall()

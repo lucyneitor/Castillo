@@ -151,3 +151,143 @@ class VistaEmpleado:
             if valor in ESTADO:
                 return valor
             print(f"Estado inválido. Elija uno de estos valores: {opciones}.")
+
+
+    @staticmethod
+    def crear_empleado() -> None:
+        print("\n" + "=" * 35)
+        print("REGISTRAR NUEVO EMPLEADO")
+        print("=" * 35)
+
+        # 1. Capturar datos personales
+        rut = VistaEmpleado._leer_texto_nuevo("RUT")
+        nombre = VistaEmpleado._leer_texto_nuevo("Nombre")
+        direccion = VistaEmpleado._leer_texto_nuevo("Dirección")
+        telefono = VistaEmpleado._leer_texto_nuevo("Teléfono")
+        correo = VistaEmpleado._leer_texto_nuevo("Correo")
+        user = VistaEmpleado._leer_texto_nuevo("Usuario")
+        password = VistaEmpleado._leer_texto_nuevo("Contraseña")
+
+        # 2. Capturar datos laborales
+        id_departamento = VistaEmpleado._leer_entero_nuevo(
+            "ID del departamento"
+        )
+        sueldo = VistaEmpleado._leer_entero_nuevo("Sueldo")
+        inicio_contrato = VistaEmpleado._leer_fecha_nueva()
+        rol_admin = VistaEmpleado._leer_rol_nuevo()
+        estado = VistaEmpleado._leer_estado_nuevo()
+
+        # 3. Crear el objeto empleado
+        try:
+            nuevo_empleado = empleado(
+                id_departamento,
+                sueldo,
+                inicio_contrato,
+                rut,
+                nombre,
+                direccion,
+                telefono,
+                correo,
+                user,
+                password,
+                rol_admin,
+                estado
+            )
+        except (ValueError, TypeError) as error:
+            print(f"\nNo se pudo crear el empleado: {error}")
+            return
+
+        # 4. Confirmar los datos antes de guardar
+        print("\nResumen del nuevo empleado:")
+        print(nuevo_empleado.mostrar_detalle())
+
+        confirmar = input(
+            "\n¿Desea registrar este empleado? (s/n): "
+        ).strip().lower()
+
+        if confirmar not in ("s", "si", "sí"):
+            print("Registro cancelado.")
+            return
+
+        # 5. Guardar mediante el DAO
+        try:
+            registrado = EmpleadoDAO.agregar_empleado(nuevo_empleado)
+        except sqlite3.Error as error:
+            print(f"\nError al registrar el empleado: {error}")
+            return
+
+        if registrado:
+            print("\nEmpleado registrado correctamente.")
+        else:
+            print(
+                "\nNo se pudo registrar el empleado. "
+                "Compruebe los datos y que el departamento exista."
+            )
+
+    @staticmethod
+    def _leer_texto_nuevo(etiqueta: str) -> str:
+        while True:
+            valor = input(f"{etiqueta}: ").strip()
+
+            if valor:
+                return valor
+
+            print(f"{etiqueta} no puede estar vacío.")
+
+    @staticmethod
+    def _leer_entero_nuevo(etiqueta: str) -> int:
+        while True:
+            valor = input(f"{etiqueta}: ").strip()
+
+            try:
+                numero = int(valor)
+
+                if numero < 0:
+                    raise ValueError
+
+                return numero
+
+            except ValueError:
+                print("Ingrese un entero igual o mayor que cero.")
+
+    @staticmethod
+    def _leer_fecha_nueva() -> date:
+        while True:
+            valor = input(
+                "Inicio de contrato (AAAA-MM-DD): "
+            ).strip()
+
+            try:
+                return date.fromisoformat(valor)
+
+            except ValueError:
+                print("Fecha inválida. Use el formato AAAA-MM-DD.")
+
+    @staticmethod
+    def _leer_rol_nuevo() -> bool:
+        while True:
+            valor = input(
+                "¿Es administrador? (s/n): "
+            ).strip().lower()
+
+            if valor in ("s", "si", "sí"):
+                return True
+
+            if valor in ("n", "no"):
+                return False
+
+            print("Responda s o n.")
+
+    @staticmethod
+    def _leer_estado_nuevo() -> str:
+        opciones = ", ".join(ESTADO)
+
+        while True:
+            valor = input(
+                f"Estado ({opciones}): "
+            ).strip().lower()
+
+            if valor in ESTADO:
+                return valor
+
+            print(f"Estado inválido. Opciones: {opciones}.")

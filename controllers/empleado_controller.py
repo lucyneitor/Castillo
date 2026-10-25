@@ -10,6 +10,7 @@ class EmpleadoController:
             print("=" * 35)
             print("1. Ver empleados")
             print("2. Modificar empleado")
+            print("3. Crear empleado")
             print("0. Volver")
             print("=" * 35)
 
@@ -19,6 +20,8 @@ class EmpleadoController:
                 VistaEmpleado.mostrar_empleados()
             elif opcion == "2":
                 VistaEmpleado.modificar_empleado()
+            elif opcion == "3":
+                VistaEmpleado.crear_empleado()
             elif opcion == "0":
                 return
             else:

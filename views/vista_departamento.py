@@ -22,6 +22,8 @@ class DepartamentoView:
             id_departamento = leer_numero("ID departamento: ")
             nombre = input("Nombre: ")
             gerente = input("RUT gerente: ")
+            if gerente == "":
+                gerente = None
             presupuesto = leer_numero("Presupuesto: ")
         except ValueError as e:
             print(f"Error: {e}")
